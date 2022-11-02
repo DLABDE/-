@@ -134,7 +134,7 @@
  * 就是指的这个时钟信号，相应的，1/Fclk即为cpu时钟周期；
  */
 #define configCPU_CLOCK_HZ					( SystemCoreClock )
-#define configTICK_RATE_HZ					( ( TickType_t ) 10000 )		//RTOS系统节拍中断的频率（一秒中断的次数）每次中断RTOS都会进行任务调度
+#define configTICK_RATE_HZ					( ( TickType_t ) 1000 )		//RTOS系统节拍中断的频率（一秒中断的次数）每次中断RTOS都会进行任务调度
 #define configMAX_PRIORITIES				( 32 )										//可使用的最大优先级
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 128 )//空闲任务使用的堆栈大小
 #define configUSE_16_BIT_TICKS			0	 	//系统节拍计数器变量数据类型，1表示为16位无符号整形，0表示为32位无符号整形

@@ -55,7 +55,7 @@ static void Ang_Task(void* parameter)
 	while (1)
 	{
 		//vTaskDelayUntil(&xLastWakeTime,50);
-		vTaskDelay(10);
+		vTaskDelay(2);
 		if(sys_flag.own_flag==1)
 		{
 			if(mpu_dmp_get_data(&pitch,&roll,&yaw)==0)
@@ -81,7 +81,7 @@ static void AngPID_Task(void* parameter)
 	sys_msg.mot_tag_ang=(int)DE_ANG_UP/2;
 	while (1)
 	{
-		vTaskDelayUntil(&xLastWakeTime,50);
+		vTaskDelayUntil(&xLastWakeTime,5);
 		sys_msg.mot_ang=((double) GetAng_ADC()/(double)4096*270)-30;//读取角度
 		sys_msg.mot_tag_speed=PID_Cal(&pid_motang,sys_msg.mot_tag_ang,sys_msg.mot_ang,DEAD_SPEED,(-DEAD_SPEED));//PID角度
 	}
@@ -93,7 +93,7 @@ static void SpeedPID_Task(void* parameter)
 	TickType_t xLastWakeTime;
 	while (1)
 	{
-		vTaskDelayUntil(&xLastWakeTime,10);
+		vTaskDelayUntil(&xLastWakeTime,1);
 		sys_msg.mot_Ama =(double)2000/7.8*((double) GetA_ADC()/(double)4096*3.3); // 读取电流MA
 		sys_msg.mot_pwm=PID_Cal(&pid_motspeed,sys_msg.mot_tag_speed,sys_msg.mot_speed,DEAD_PWM,(-DEAD_PWM));//PID速度
 		set_pwm(sys_msg.mot_pwm);	//修改占空比
@@ -104,7 +104,7 @@ static void Iwdg_Task(void* parameter)
 {	
 	while (1)
 	{
-		vTaskDelay(5000);
+		vTaskDelay(500);
 		GPIO_ToggleBits(GPIOA,GPIO_Pin_6);
 		IWDG_Feed();
 	}
@@ -114,7 +114,7 @@ static void Usarttx_Task(void* parameter)
 {	
 	while (1)
 	{
-		vTaskDelay(80);
+		vTaskDelay(8);
 		Usart_Dataframe( 0x01, sys_msg.mot_pwm);
 		Usart_Dataframe( 0x02, sys_msg.mot_Ama);
 		Usart_Dataframe( 0x03, sys_msg.mot_speed);

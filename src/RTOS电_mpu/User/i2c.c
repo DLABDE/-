@@ -3,7 +3,7 @@
 static void i2c_Delay(void)
 {
 	uint8_t i;
-	for (i = 0; i < 35; i++);	//循环次数为20~250时都能通讯正常
+	for (i = 0; i < 30; i++);	//循环次数为20~250时都能通讯正常
 }
 
 //初始化IIC
@@ -11,11 +11,11 @@ void IIC_Init(void)
 {			
   GPIO_InitTypeDef  GPIO_InitStructure;
 
-  RCC_AHB1PeriphClockCmd(GPIO_CLK, ENABLE);//使能GPIOB时钟
+  RCC_AHB1PeriphClockCmd(GPIO_CLK, ENABLE);//使能GPIO时钟
   GPIO_InitStructure.GPIO_Pin = GPIO_SCLK_Pin | GPIO_SDA_Pin;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIO_X, &GPIO_InitStructure);//初始化
 	SCL_Set();
@@ -27,8 +27,8 @@ void SDA_OUT()
   RCC_AHB1PeriphClockCmd(GPIO_CLK, ENABLE);//使能GPIOB时钟
   GPIO_InitStructure.GPIO_Pin = GPIO_SDA_Pin;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;//开漏输出
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIO_X, &GPIO_InitStructure);//初始化
 }
@@ -38,8 +38,8 @@ void SDA_IN()
   RCC_AHB1PeriphClockCmd(GPIO_CLK, ENABLE);
   GPIO_InitStructure.GPIO_Pin = GPIO_SDA_Pin;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  //GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+  //GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIO_X, &GPIO_InitStructure);//初始化
 }

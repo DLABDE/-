@@ -10,9 +10,9 @@ void PID_Init()
 	pid_motspeed.Ki = 0;
 	pid_motspeed.Kd = 0;
 	
-	pid_motang.Kp = 2;
-	pid_motang.Ki = 0.3;
-	pid_motang.Kd = 0.04;
+	pid_motang.Kp = 2.2;
+	pid_motang.Ki = 0.45;
+	pid_motang.Kd = 0.05;
 }
 
 int16_t PID_Cal(struct pid_msg * pid_mot,int16_t tag,int16_t act,int16_t deadup,int16_t deaddown)
